@@ -2,7 +2,11 @@
 
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperclip, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPaperclip,
+  faArrowRight,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -31,8 +35,6 @@ function ChatContainer() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [isSending, setIsSending] = useState(false);
-
-  console.log("messages", messages);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -107,8 +109,6 @@ function ChatContainer() {
       ],
     };
 
-    console.log("payload", JSON.stringify(payload));
-
     try {
       // Send the message to the backend
       const response = await axios.post("/api/openai", payload);
@@ -117,11 +117,7 @@ function ChatContainer() {
         toast.error(response.data.error);
       }
 
-      // Handle the successful response by adding the assistant's message
-      console.log("response", response.data);
-
       const newMessage = { ...response.data.message };
-      console.log("new message", newMessage);
       setMessages((prevMessages) => [...prevMessages, newMessage]);
     } catch (error) {
       toast.error("Failed to send message");
@@ -218,7 +214,11 @@ function ChatContainer() {
           onClick={sendMessage}
           disabled={isSending}
         >
-          <FontAwesomeIcon icon={faArrowRight} className="h-5 w-5" />
+          {isSending ? (
+            <FontAwesomeIcon icon={faSpinner} className="h-5 w-5 fa-spin" />
+          ) : (
+            <FontAwesomeIcon icon={faArrowRight} className="h-5 w-5" />
+          )}
         </button>
       </div>
     </div>

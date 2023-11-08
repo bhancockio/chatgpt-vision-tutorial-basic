@@ -2,7 +2,7 @@ import React from "react";
 
 function Introduction() {
   return (
-    <div className="flex flex-col h-full space-y-4 p-4">
+    <div className="flex flex-col h-full space-y-4 p-4 overflow-auto">
       <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500">
         ChatGPT-4 Vision Tutorial
       </h1>

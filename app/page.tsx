@@ -11,7 +11,7 @@ export default function Home() {
         backgroundPosition: "center",
       }}
     >
-      <div className="w-full max-w-xl mx-auto mb-4 md:w-1/2 md:max-w-lg xl:max-w-xl 2xl:max-w-2xl">
+      <div className="w-full max-w-xl mx-auto mb-4 md:mb-0 md:w-1/2 md:max-w-lg xl:max-w-xl 2xl:max-w-2xl">
         <div className="card bg-white p-6 shadow-lg rounded-lg md:mb-0 md:mr-4 h-fit md:h-[85vh]">
           <Introduction />
         </div>

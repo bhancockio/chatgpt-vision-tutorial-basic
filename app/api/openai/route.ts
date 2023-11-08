@@ -49,7 +49,7 @@ export async function POST(request: Request) {
         return {
           type: content.type,
           image_url: {
-            url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
+            url: content.image_url.url,
           },
         };
       }
@@ -70,20 +70,17 @@ export async function POST(request: Request) {
     Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
   };
 
-  await axios
+  return axios
     .post(OPENAI_URL, payload, { headers })
     .then((response) => {
-      console.log("response", response.data);
+      const firstMessage = response.data.choices[0].message;
+      return NextResponse.json({ success: true, message: firstMessage });
     })
     .catch((error) => {
-      console.log("error");
+      console.log("error", error);
+      return NextResponse.json(
+        { success: false, message: null },
+        { status: 500 }
+      );
     });
-
-  const message = {
-    role: "assistant",
-    content:
-      "This image features a beautiful natural landscape under a blue sky with scattered clouds. In the foreground, there is a wooden boardwalk or path that stretches straight ahead into the distance. The boardwalk is surrounded by lush, green grass and various vegetation on either side. In the background, you can see a line of trees and shrubs. The scenery suggests a peaceful, outdoor setting, likely a park, nature reserve, or a wetland area where the boardwalk is provided to allow people to walk through without disturbing the natural environment. The lighting and conditions suggest it is a sunny day with good weather.",
-  };
-
-  return NextResponse.json({ success: true, message });
 }
