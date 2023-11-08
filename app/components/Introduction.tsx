@@ -34,7 +34,7 @@ function Introduction() {
         <div className="flex justify-center items-center">
           <p className="text-gray-500 text-sm">
             Made with <span className="text-red-500">&hearts;</span> by Brandon
-            Hancock
+            Hancock (@bhancock_ai)
           </p>
         </div>
       </div>
